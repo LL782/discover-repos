@@ -4,8 +4,8 @@ This is an exercise project using TypeScript and React, boot-strapped with [crea
 
 ## Quick links
 
-- [The Exercise](#exercise-🏋️‍♀️)
-- [Run the app](#running-the-app)
+- [The Exercise](#the-exercise-%EF%B8%8F%EF%B8%8F)
+- [Run the app](#run-the-app)
 
 ## The Exercise 🏋️‍♀️
 
