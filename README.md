@@ -27,8 +27,8 @@ This is an exercise project using TypeScript and React, boot-strapped with [crea
 ## Run the app
 
 ```
-npm install
-npm run dev
+yarn install
+yarn run dev
 ```
 
 See the [package.json](/package.json) for other available scripts.
