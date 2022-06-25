@@ -1,6 +1,10 @@
 import '@/styles/global.css'
-import type { AppProps } from 'next/app'
+import App from 'next/app'
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import mocks from '../mocks/'
+
+if (process.env.NODE_ENV === 'development') {
+  mocks.enable()
 }
+
+export default App
