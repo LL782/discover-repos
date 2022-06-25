@@ -19,7 +19,7 @@ describe('Discover Repos', () => {
     afterAll(() => {
       global.fetch = unmockedFetch
     })
-    it('Calls GitHub for the most starred, recently created repos ', () => {
+    it('Calls GitHub for the most starred repos created recently', () => {
       const searchApi = 'https://api.github.com/search/'
       const createdQuery = `q=created:%3E${SEVEN_DAYS_AGO}`
       const highestStarsFirst = 'stars&order=desc'
