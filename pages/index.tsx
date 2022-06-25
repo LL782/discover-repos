@@ -2,15 +2,15 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 
 import styles from '@/pages/index.module.css'
-import { SearchReposRes } from 'discoverRepos/model/SearchReposRes'
-import { RepoData } from 'discoverRepos/model/RepoData'
-import { ShowResults } from '../discoverRepos'
+import { SearchReposRes } from 'DiscoverRepos/model/SearchReposRes'
+import { RepoData } from 'DiscoverRepos/model/RepoData'
+import { ShowResults } from '../DiscoverRepos'
 
 interface Props {
   repos: RepoData[]
 }
 
-export default function Home({ repos }: Props) {
+export default function DiscoverRepos({ repos }: Props) {
   return (
     <div className={styles.container}>
       <Head>
