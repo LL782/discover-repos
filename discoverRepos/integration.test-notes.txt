@@ -1,0 +1,9 @@
+TODAY
+SEVEN DAYS PREVIOUS
+
+Discover repos
+  Calls GitHub for repositories created in the last seven days with the highest number of stars
+
+  Given a GitHub API that returns details of thirty repos 
+    When they load
+      Displays details of all thirty
