@@ -1,4 +1,7 @@
-import { getServerSideProps } from '../pages/index'
+import { render, screen } from '@testing-library/react'
+
+import Home, { getServerSideProps } from '@/pages/index'
+import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
 
 const TODAY = '2020-01-30'
 const SEVEN_DAYS_AGO = '2020-01-23'
@@ -7,7 +10,7 @@ jest.useFakeTimers().setSystemTime(new Date(TODAY))
 const unmockedFetch = global.fetch
 
 describe('Discover Repos', () => {
-  describe('When getting server side props', () => {
+  describe('Gets server-side props', () => {
     beforeAll(async () => {
       global.fetch = jest.fn().mockResolvedValue({ json: () => Promise })
       await getServerSideProps()
@@ -21,6 +24,16 @@ describe('Discover Repos', () => {
       const highestStarsFirst = 'stars&order=desc'
       const expectedUrl = `${searchApi}repositories?${createdQuery}&sort=${highestStarsFirst}`
       expect(fetch).toHaveBeenCalledWith(expectedUrl)
+    })
+  })
+  describe('Given repos', () => {
+    it('displays links to the top ten', async () => {
+      const { props } = await getServerSideProps()
+      render(<Home {...props} />)
+
+      const repoTitles = await screen.findAllByRole('link')
+      expect(repoTitles.length).toBe(10)
+      expect(reposResponse.items.length).toBeGreaterThan(10)
     })
   })
 })
