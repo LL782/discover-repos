@@ -8,11 +8,12 @@ const SEVEN_DAYS_AGO = '2020-01-23'
 jest.useFakeTimers().setSystemTime(new Date(TODAY))
 
 const unmockedFetch = global.fetch
+const fakeResponse = { json: () => Promise.resolve({ items: [] }) }
 
 describe('Discover Repos', () => {
   describe('Gets server-side props', () => {
     beforeAll(async () => {
-      global.fetch = jest.fn().mockResolvedValue({ json: () => Promise })
+      global.fetch = jest.fn().mockResolvedValue(fakeResponse)
       await getServerSideProps()
     })
     afterAll(() => {
