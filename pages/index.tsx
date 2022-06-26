@@ -10,7 +10,7 @@ interface Props {
   repos: RepoData[]
 }
 
-export default function DiscoverRepos({ repos }: Props) {
+export default function Page({ repos }: Props) {
   return (
     <div className={styles.container}>
       <Head>
