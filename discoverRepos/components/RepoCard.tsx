@@ -6,10 +6,13 @@ export const RepoCard = ({ data }: { data: RepoData }) => {
   return (
     <div>
       <h2>
-        Title: <a href={html_url}>{full_name}</a>
+        <a href={html_url}>{full_name}</a>
       </h2>
       <p>{description}</p>
-      <p>Starred: {stargazers_count}</p>
+      <p>
+        Starred <strong>{stargazers_count}</strong> times
+      </p>
+      <button role="button">Favourite</button>
     </div>
   )
 }

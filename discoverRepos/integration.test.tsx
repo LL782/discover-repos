@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { getByRole, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
@@ -26,43 +26,54 @@ describe('DiscoverRepos', () => {
 
   describe('Given a good response from GitHub', () => {
     const allRepos = reposResponse.items
-    const topTenRepos = allRepos.slice(0, 10)
 
     beforeEach(async () => {
       const { props } = await DiscoverRepos.getServerSideProps()
       render(<DiscoverRepos.default {...props} />)
     })
 
-    it.each(topTenRepos)(
-      'displays a link, names and description of the first ten repos',
-      async ({ full_name, html_url, description, stargazers_count }) => {
-        const link: HTMLAnchorElement = await screen.findByRole('link', {
-          name: full_name,
-        })
-
-        expect(link).toBeInTheDocument()
-        expect(link.href).toBe(html_url)
-
-        if (description) {
-          expect(await screen.findByText(description)).toBeInTheDocument()
-        }
-
-        expect(
-          await screen.findByText(`Starred: ${stargazers_count}`)
-        ).toBeInTheDocument()
-      }
-    )
-
-    it("doesn't display the other repos", () => {
+    it('displays the first ten repos only', () => {
       expect(allRepos.length).toBeGreaterThan(10)
 
-      let name = allRepos[10].full_name
-      const linkToEleventhRepo = screen.queryByRole('link', { name })
-      expect(linkToEleventhRepo).not.toBeInTheDocument()
+      let name = allRepos[9].full_name
+      const linkToRepo10 = screen.queryByRole('link', { name })
+      expect(linkToRepo10).toBeInTheDocument()
+
+      name = allRepos[10].full_name
+      const linkToRepo11 = screen.queryByRole('link', { name })
+      expect(linkToRepo11).not.toBeInTheDocument()
 
       name = allRepos[29].full_name
-      const linkToThirtyRepo = screen.queryByRole('link', { name })
-      expect(linkToThirtyRepo).not.toBeInTheDocument()
+      const linkToRepo30 = screen.queryByRole('link', { name })
+      expect(linkToRepo30).not.toBeInTheDocument()
+    })
+
+    describe.each(allRepos.slice(0, 10))(
+      'For the top ten repos',
+      ({ full_name, html_url, description, stargazers_count }) => {
+        it('displays the name as a link', async () => {
+          const link: HTMLAnchorElement = await screen.findByRole('link', {
+            name: full_name,
+          })
+          expect(link).toBeInTheDocument()
+          expect(link.href).toBe(html_url)
+        })
+        it('displays the description when it is available', async () => {
+          if (description) {
+            expect(await screen.findByText(description)).toBeInTheDocument()
+          }
+        })
+        it('displays the star gazer count', async () => {
+          expect(await screen.findByText(stargazers_count)).toBeInTheDocument()
+        })
+      }
+    )
+    it('Each of the repos shown has a "favourite" button', async () => {
+      expect(
+        await (
+          await screen.findAllByRole('button', { name: 'Favourite' })
+        ).length
+      ).toBe(10)
     })
   })
 })
