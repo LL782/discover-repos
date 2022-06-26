@@ -1,4 +1,4 @@
-import { getByRole, render, screen } from '@testing-library/react'
+import { fireEvent, getByRole, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
@@ -68,12 +68,36 @@ describe('DiscoverRepos', () => {
         })
       }
     )
+
     it('Each of the repos shown has a "favourite" button', async () => {
       expect(
         await (
           await screen.findAllByRole('checkbox', { name: 'Favourite' })
         ).length
       ).toBe(10)
+    })
+
+    it('The favourite view only shows repo that have been added to the favourite list', async () => {
+      let name = allRepos[0].full_name
+      const repo0 = screen.queryByRole('link', { name })
+      expect(repo0).toBeInTheDocument()
+
+      name = allRepos[1].full_name
+      const repo1 = screen.queryByRole('link', { name })
+      expect(repo1).toBeInTheDocument()
+
+      const [_, repo0FavouriteButton] = await screen.findAllByRole('checkbox', {
+        name: 'Favourite',
+      })
+      const favouriteView = await screen.findByRole('button', {
+        name: 'Favourites',
+      })
+
+      fireEvent.click(repo0FavouriteButton)
+      fireEvent.click(favouriteView)
+
+      expect(repo0).toBeInTheDocument()
+      expect(repo1).not.toBeInTheDocument()
     })
   })
 })
