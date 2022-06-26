@@ -2,42 +2,63 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
+import { fakeRepoData } from './fakeData/fakeRepoData'
+import { RepoData } from './model/RepoData'
+
+const allRepos = reposResponse.items
+const { findByRole, findAllByRole, queryByRole } = screen
+const repo = (i: number) => queryByRole('link', { name: allRepos[i].full_name })
+const repoByName = (name: string) => queryByRole('link', { name })
 
 describe('DiscoverRepos', () => {
-  describe('Given a good response from GitHub', () => {
-    const allRepos = reposResponse.items
+  describe("Given favourites from a previous session (inc. one that's no longer in the GitHub response)", () => {
+    const previous: RepoData[] = [allRepos[3], fakeRepoData]
 
-    beforeEach(async () => {
-      const { props } = await DiscoverRepos.getServerSideProps()
-      render(<DiscoverRepos.default {...props} />)
+    beforeEach(() => {
+      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(previous))
     })
 
-    it('displays the first ten repos', () => {
-      expect(allRepos.length).toBeGreaterThan(10)
+    describe('When the page loads with props from the server', () => {
+      beforeEach(async () => {
+        const { props } = await DiscoverRepos.getServerSideProps()
+        render(<DiscoverRepos.default {...props} />)
+      })
 
-      const queryRep = (i: number) =>
-        screen.queryByRole('link', { name: allRepos[i].full_name })
+      it('displays the first ten repos returned by GitHub', () => {
+        expect(allRepos.length).toBeGreaterThan(10)
+        expect(repo(0)).toBeInTheDocument()
+        expect(repo(9)).toBeInTheDocument()
+        expect(repo(10)).not.toBeInTheDocument()
+      })
 
-      expect(queryRep(0)).toBeInTheDocument()
-      expect(queryRep(9)).toBeInTheDocument()
-      expect(queryRep(10)).not.toBeInTheDocument()
-    })
+      describe(`When a new repos's "Favourite" toggle is clicked`, () => {
+        beforeEach(async () => {
+          const toggles = await findAllByRole('checkbox', { name: 'Favourite' })
+          fireEvent.click(toggles[1])
+        })
 
-    it('When the "Favourite" toggle is clicked the repo is added to the "Favourites" view', async () => {
-      const { findByRole, findAllByRole } = screen
-      const favsButton = await findByRole('button', { name: 'Favourites' })
-      const repo0 = await findByRole('link', { name: allRepos[0].full_name })
-      const repo1 = await findByRole('link', { name: allRepos[1].full_name })
-      const favToggles = await findAllByRole('checkbox', { name: 'Favourite' })
-
-      expect(repo0).toBeInTheDocument()
-      expect(repo1).toBeInTheDocument()
-
-      fireEvent.click(favToggles[0])
-      fireEvent.click(favsButton)
-
-      expect(repo0).toBeInTheDocument()
-      expect(repo1).not.toBeInTheDocument()
+        describe('And we switch to the "Favourites" view', () => {
+          beforeEach(async () => {
+            fireEvent.click(
+              await findByRole('button', {
+                name: 'Favourites',
+              })
+            )
+          })
+          it('displays the newly favourited repo', async () => {
+            expect(repo(1)).toBeInTheDocument()
+          })
+          it('displays the previously stored repos', async () => {
+            previous.forEach(({ full_name }) => {
+              expect(repoByName(full_name)).toBeInTheDocument()
+            })
+          })
+          it('does NOT display other repos', () => {
+            expect(repo(0)).not.toBeInTheDocument()
+            expect(repo(9)).not.toBeInTheDocument()
+          })
+        })
+      })
     })
   })
 })
