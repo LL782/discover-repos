@@ -7,16 +7,19 @@ export interface Props {
   isFav: (arg0: string) => boolean
   subFromFavs: () => void
 }
+type OnChange = ChangeEventHandler<HTMLInputElement>
 
 export const RepoCard = ({ data, addToFavs, subFromFavs, isFav }: Props) => {
   const { description, full_name, html_url, stargazers_count } = data
-  const onChange: ChangeEventHandler<HTMLInputElement> = ({
-    currentTarget,
-  }) => {
-    currentTarget.checked ? addToFavs() : subFromFavs()
-  }
-
   const checked = isFav(full_name)
+
+  const onChange: OnChange = ({ currentTarget: { checked } }) => {
+    if (checked) {
+      addToFavs()
+    } else {
+      subFromFavs()
+    }
+  }
 
   return (
     <div>
