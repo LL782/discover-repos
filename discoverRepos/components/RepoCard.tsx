@@ -1,7 +1,7 @@
 import { RepoData } from '../model/RepoData'
 
 export const RepoCard = ({ data }: { data: RepoData }) => {
-  const { description, full_name, html_url } = data
+  const { description, full_name, html_url, stargazers_count } = data
 
   return (
     <div>
@@ -9,6 +9,7 @@ export const RepoCard = ({ data }: { data: RepoData }) => {
         Title: <a href={html_url}>{full_name}</a>
       </h2>
       <p>{description}</p>
+      <p>Starred: {stargazers_count}</p>
     </div>
   )
 }
