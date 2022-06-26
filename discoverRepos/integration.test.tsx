@@ -1,4 +1,4 @@
-import { fireEvent, getByRole, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
