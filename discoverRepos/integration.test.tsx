@@ -49,7 +49,7 @@ describe('DiscoverRepos', () => {
     })
 
     describe.each(allRepos.slice(0, 10))(
-      'For the top ten repos',
+      'For each of the first ten repos',
       ({ full_name, html_url, description, stargazers_count }) => {
         it('displays the name as a link', async () => {
           const link: HTMLAnchorElement = await screen.findByRole('link', {
@@ -69,7 +69,7 @@ describe('DiscoverRepos', () => {
       }
     )
 
-    it('Each of the repos shown has a "favourite" toggle', async () => {
+    it('Each of the repos shown has a "Favourite" toggle', async () => {
       expect(
         await (
           await screen.findAllByRole('checkbox', { name: 'Favourite' })
@@ -77,7 +77,7 @@ describe('DiscoverRepos', () => {
       ).toBe(10)
     })
 
-    it('The favourite view only shows repo that have been added to the favourite list', async () => {
+    it('When the "Favourite" toggle is clicked the repo is added to the "Favourites" view', async () => {
       const { findByRole, findAllByRole } = screen
       const favsButton = await findByRole('button', { name: 'Favourites' })
       const repo0 = await findByRole('link', { name: allRepos[0].full_name })
