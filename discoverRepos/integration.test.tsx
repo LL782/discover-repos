@@ -15,17 +15,12 @@ describe('DiscoverRepos', () => {
     it('displays the first ten repos only', () => {
       expect(allRepos.length).toBeGreaterThan(10)
 
-      let name = allRepos[9].full_name
-      const linkToRepo10 = screen.queryByRole('link', { name })
-      expect(linkToRepo10).toBeInTheDocument()
+      const queryRep = (i: number) =>
+        screen.queryByRole('link', { name: allRepos[i].full_name })
 
-      name = allRepos[10].full_name
-      const linkToRepo11 = screen.queryByRole('link', { name })
-      expect(linkToRepo11).not.toBeInTheDocument()
-
-      name = allRepos[29].full_name
-      const linkToRepo30 = screen.queryByRole('link', { name })
-      expect(linkToRepo30).not.toBeInTheDocument()
+      expect(queryRep(0)).toBeInTheDocument()
+      expect(queryRep(9)).toBeInTheDocument()
+      expect(queryRep(10)).not.toBeInTheDocument()
     })
 
     describe.each(allRepos.slice(0, 10))(
