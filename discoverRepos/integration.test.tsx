@@ -34,10 +34,17 @@ describe('DiscoverRepos', () => {
     })
 
     it.each(topTenRepos)(
-      'displays a link to the first ten repos',
-      async ({ full_name }) => {
-        const link = await screen.findByRole('link', { name: full_name })
+      'displays a link, names and descriptions of the first ten repos',
+      async ({ full_name, html_url, description }) => {
+        const link: HTMLAnchorElement = await screen.findByRole('link', {
+          name: full_name,
+        })
         expect(link).toBeInTheDocument()
+        expect(link.href).toBe(html_url)
+
+        if (description) {
+          expect(await screen.findByText(description)).toBeInTheDocument()
+        }
       }
     )
 
