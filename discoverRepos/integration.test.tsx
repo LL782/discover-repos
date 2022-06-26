@@ -69,7 +69,7 @@ describe('DiscoverRepos', () => {
       }
     )
 
-    it('Each of the repos shown has a "favourite" button', async () => {
+    it('Each of the repos shown has a "favourite" toggle', async () => {
       expect(
         await (
           await screen.findAllByRole('checkbox', { name: 'Favourite' })
@@ -78,23 +78,17 @@ describe('DiscoverRepos', () => {
     })
 
     it('The favourite view only shows repo that have been added to the favourite list', async () => {
-      let name = allRepos[0].full_name
-      const repo0 = screen.queryByRole('link', { name })
-      expect(repo0).toBeInTheDocument()
+      const { findByRole, findAllByRole } = screen
+      const favsButton = await findByRole('button', { name: 'Favourites' })
+      const repo0 = await findByRole('link', { name: allRepos[0].full_name })
+      const repo1 = await findByRole('link', { name: allRepos[1].full_name })
+      const favToggles = await findAllByRole('checkbox', { name: 'Favourite' })
 
-      name = allRepos[1].full_name
-      const repo1 = screen.queryByRole('link', { name })
+      expect(repo0).toBeInTheDocument()
       expect(repo1).toBeInTheDocument()
 
-      const [_, repo0FavouriteButton] = await screen.findAllByRole('checkbox', {
-        name: 'Favourite',
-      })
-      const favouriteView = await screen.findByRole('button', {
-        name: 'Favourites',
-      })
-
-      fireEvent.click(repo0FavouriteButton)
-      fireEvent.click(favouriteView)
+      fireEvent.click(favToggles[0])
+      fireEvent.click(favsButton)
 
       expect(repo0).toBeInTheDocument()
       expect(repo1).not.toBeInTheDocument()
