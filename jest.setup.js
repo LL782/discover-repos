@@ -3,6 +3,6 @@ import 'next'
 
 import { server } from './mocks/server'
 
-// beforeAll(() => server.listen())
+beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
