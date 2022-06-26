@@ -24,12 +24,33 @@ describe('DiscoverRepos', () => {
     global.fetch = unmockedFetch
   })
 
-  it('displays links to the top ten', async () => {
-    const { props } = await DiscoverRepos.getServerSideProps()
-    render(<DiscoverRepos.default {...props} />)
+  describe('Given a good response from GitHub', () => {
+    const allRepos = reposResponse.items
+    const topTenRepos = allRepos.slice(0, 10)
 
-    const repoTitles = await screen.findAllByRole('link')
-    expect(repoTitles.length).toBe(10)
-    expect(reposResponse.items.length).toBeGreaterThan(10)
+    beforeEach(async () => {
+      const { props } = await DiscoverRepos.getServerSideProps()
+      render(<DiscoverRepos.default {...props} />)
+    })
+
+    it.each(topTenRepos)(
+      'displays a link to the first ten repos',
+      async ({ full_name }) => {
+        const link = await screen.findByRole('link', { name: full_name })
+        expect(link).toBeInTheDocument()
+      }
+    )
+
+    it("doesn't display the other repos", () => {
+      expect(allRepos.length).toBeGreaterThan(10)
+
+      let name = allRepos[10].full_name
+      const linkToEleventhRepo = screen.queryByRole('link', { name })
+      expect(linkToEleventhRepo).not.toBeInTheDocument()
+
+      name = allRepos[29].full_name
+      const linkToThirtyRepo = screen.queryByRole('link', { name })
+      expect(linkToThirtyRepo).not.toBeInTheDocument()
+    })
   })
 })
