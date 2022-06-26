@@ -12,7 +12,8 @@ export const RepoCard = ({ data }: { data: RepoData }) => {
       <p>
         Starred <strong>{stargazers_count}</strong> times
       </p>
-      <button role="button">Favourite</button>
+      <label htmlFor={full_name}>Favourite</label>
+      <input type="checkbox" id={full_name} name={full_name} />
     </div>
   )
 }

@@ -71,7 +71,7 @@ describe('DiscoverRepos', () => {
     it('Each of the repos shown has a "favourite" button', async () => {
       expect(
         await (
-          await screen.findAllByRole('button', { name: 'Favourite' })
+          await screen.findAllByRole('checkbox', { name: 'Favourite' })
         ).length
       ).toBe(10)
     })
