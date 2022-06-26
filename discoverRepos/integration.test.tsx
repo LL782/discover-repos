@@ -12,7 +12,7 @@ describe('DiscoverRepos', () => {
       render(<DiscoverRepos.default {...props} />)
     })
 
-    it('displays the first ten repos only', () => {
+    it('displays the first ten repos', () => {
       expect(allRepos.length).toBeGreaterThan(10)
 
       const queryRep = (i: number) =>
@@ -21,35 +21,6 @@ describe('DiscoverRepos', () => {
       expect(queryRep(0)).toBeInTheDocument()
       expect(queryRep(9)).toBeInTheDocument()
       expect(queryRep(10)).not.toBeInTheDocument()
-    })
-
-    describe.each(allRepos.slice(0, 10))(
-      'For each of the first ten repos',
-      ({ full_name, html_url, description, stargazers_count }) => {
-        it('displays the name as a link', async () => {
-          const link: HTMLAnchorElement = await screen.findByRole('link', {
-            name: full_name,
-          })
-          expect(link).toBeInTheDocument()
-          expect(link.href).toBe(html_url)
-        })
-        it('displays the description when it is available', async () => {
-          if (description) {
-            expect(await screen.findByText(description)).toBeInTheDocument()
-          }
-        })
-        it('displays the star gazer count', async () => {
-          expect(await screen.findByText(stargazers_count)).toBeInTheDocument()
-        })
-      }
-    )
-
-    it('Each of the repos shown has a "Favourite" toggle', async () => {
-      expect(
-        await (
-          await screen.findAllByRole('checkbox', { name: 'Favourite' })
-        ).length
-      ).toBe(10)
     })
 
     it('When the "Favourite" toggle is clicked the repo is added to the "Favourites" view', async () => {

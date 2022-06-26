@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from 'react'
 import { RepoData } from '../model/RepoData'
 
-interface Props {
+export interface Props {
   addToFavs: () => void
   data: RepoData
   isFav: (arg0: string) => boolean
