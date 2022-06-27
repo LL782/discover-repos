@@ -2,25 +2,14 @@ import { ChangeEventHandler } from 'react'
 import { RepoData } from '../model/RepoData'
 
 export interface Props {
-  addToFavs: () => void
   data: RepoData
   isFav: (arg0: string) => boolean
-  subFromFavs: () => void
+  onChange: ChangeEventHandler<HTMLInputElement>
 }
-type OnChange = ChangeEventHandler<HTMLInputElement>
 
-export const RepoCard = ({ data, addToFavs, subFromFavs, isFav }: Props) => {
+export const RepoCard = ({ data, onChange, isFav }: Props) => {
   const { description, full_name, html_url, stargazers_count } = data
   const checked = isFav(full_name)
-
-  const onChange: OnChange = ({ currentTarget: { checked } }) => {
-    if (checked) {
-      addToFavs()
-    } else {
-      subFromFavs()
-    }
-  }
-
   return (
     <div>
       <h2>

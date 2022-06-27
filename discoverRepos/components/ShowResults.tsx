@@ -4,7 +4,7 @@ import { ListResults } from './ListResults'
 import { PickView } from './PickView'
 import { RepoData } from '../model/RepoData'
 import { View } from '../model/View'
-import { __depreciated__useFavourites } from '../hooks/useFavourites'
+import { useFavourites } from '../hooks/useFavourites'
 
 interface Props {
   trendingRepos: RepoData[]
@@ -12,21 +12,17 @@ interface Props {
 
 export const ShowResults = ({ trendingRepos: trendingRepos }: Props) => {
   const [view, setView] = useState<View>(View.Trending)
-  const [favourites, setFavourites] = useState(new Map<string, boolean>())
+  const { favs, isFav, toggleFav } = useFavourites(trendingRepos)
 
   const reposToShow =
     view === View.Trending
       ? trendingRepos
-      : __depreciated__useFavourites(trendingRepos, favourites)
+      : trendingRepos.filter(({ full_name }) => favs.includes(full_name))
 
   return (
     <>
       <PickView setView={setView} view={view} />
-      <ListResults
-        favourites={favourites}
-        setFavourites={setFavourites}
-        results={reposToShow}
-      />
+      <ListResults isFav={isFav} results={reposToShow} toggleFav={toggleFav} />
     </>
   )
 }
