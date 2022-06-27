@@ -17,5 +17,7 @@ export const useFavourites = (allRepos: RepoData[]) => {
     }
   }
 
-  return { favs, toggleFav }
+  const isFav = (name: string) => favs.includes(name)
+
+  return { favs, isFav, toggleFav }
 }

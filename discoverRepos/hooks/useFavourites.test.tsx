@@ -5,6 +5,7 @@ import { useFavourites } from './useFavourites'
 
 type Result = {
   favs: string[]
+  isFav: (arg0: string) => boolean
   toggleFav: (arg0: string) => void
 }
 
@@ -24,5 +25,10 @@ describe('useFavourites [hook]', () => {
     expect(result.current.favs).toEqual([name])
     act(() => result.current.toggleFav(name))
     expect(result.current.favs).toEqual([])
+  })
+  it('returns a way to check if a repo is in the list of favourites', () => {
+    expect(result.current.isFav(name)).toBe(false)
+    act(() => result.current.toggleFav(name))
+    expect(result.current.isFav(name)).toBe(true)
   })
 })
