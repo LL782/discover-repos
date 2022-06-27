@@ -48,7 +48,8 @@ describe('useFavourites [hook]', () => {
   })
   describe('Given a trending repo from local storage', () => {
     beforeEach(() => {
-      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify([name]))
+      const local = JSON.stringify([fakeRepoData.full_name])
+      window.localStorage.setItem('DiscoverReposFavs', local)
     })
 
     describe('When the hook renders', () => {
@@ -57,8 +58,8 @@ describe('useFavourites [hook]', () => {
         result = hook.result
       })
       it('includes the locally stored favourites in what it returns', () => {
-        expect(hook.result.current.isFav(name)).toBe(true)
-        expect(hook.result.current.favs).toEqual([name])
+        expect(hook.result.current.isFav(fakeRepoData.full_name)).toBe(true)
+        expect(hook.result.current.favs).toEqual([fakeRepoData.full_name])
       })
     })
   })
