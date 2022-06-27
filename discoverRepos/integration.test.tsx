@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
-import { fakeRepoData } from './fakeData/fakeRepoData'
 import { RepoData } from './model/RepoData'
 
 const allRepos = reposResponse.items
@@ -17,11 +16,12 @@ const viewFavourites = async () =>
   fireEvent.click(await findByRole('button', { name: 'Favourites' }))
 
 describe('DiscoverRepos', () => {
-  describe("Given favourites from a previous session (including one that's no longer in the GitHub response)", () => {
-    const previous: RepoData[] = [allRepos[3], fakeRepoData]
-
+  describe('Given a favourite from a previous session', () => {
     beforeEach(() => {
-      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(previous))
+      window.localStorage.setItem(
+        'DiscoverReposFavs',
+        JSON.stringify([allRepos[3]])
+      )
     })
 
     describe('When the page loads with props from the server', () => {
@@ -50,10 +50,8 @@ describe('DiscoverRepos', () => {
           it('displays the newly favourited repo', async () => {
             expect(repo(1)).toBeInTheDocument()
           })
-          it('displays the previously stored repos', async () => {
-            previous.forEach(({ full_name }) => {
-              expect(repoByName(full_name)).toBeInTheDocument()
-            })
+          it('displays the previously stored favourite', async () => {
+            expect(repo(3)).toBeInTheDocument()
           })
           it('does NOT display other repos', () => {
             expect(repo(0)).not.toBeInTheDocument()
@@ -61,7 +59,7 @@ describe('DiscoverRepos', () => {
           })
         })
       })
-      describe(`When one of the previously stored repos repo's "Favourite" toggle is clicked`, () => {
+      describe(`When the previously stored repo's "Favourite" toggle is clicked`, () => {
         beforeEach(async () => {
           fireEvent.click(await favToggle(3))
         })
@@ -69,7 +67,7 @@ describe('DiscoverRepos', () => {
         it('removes it from the browser storage', async () => {
           expect(
             JSON.parse(window.localStorage.getItem('DiscoverReposFavs') || '')
-          ).toEqual([previous[1]])
+          ).toEqual([])
         })
 
         describe('And when we switch to the "Favourites" view', () => {
