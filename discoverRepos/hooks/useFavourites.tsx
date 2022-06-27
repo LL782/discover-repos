@@ -10,15 +10,19 @@ export const useFavourites = (allRepos: RepoData[]) => {
   const local = JSON.parse(
     window.localStorage.getItem('DiscoverReposFavs') || '[]'
   )
-
   const [favs, setFavs] = useState<string[]>(local)
 
   const toggleFav = (name: string) => {
+    let newFavs: string[]
+
     if (favs.includes(name)) {
-      setFavs(favs.filter((n) => n !== name))
+      newFavs = favs.filter((n) => n !== name)
     } else {
-      setFavs([name])
+      newFavs = [...favs, name]
     }
+
+    setFavs(newFavs)
+    window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(newFavs))
   }
 
   const isFav = (name: string) => favs.includes(name)

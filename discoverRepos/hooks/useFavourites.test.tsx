@@ -12,6 +12,9 @@ type Result = {
 let hook: RenderHookResult<Result, RepoData[]>
 let result: { current: Result }
 
+const getLocal = () =>
+  JSON.parse(window.localStorage.getItem('DiscoverReposFavs') || '[]')
+
 describe('useFavourites [hook]', () => {
   describe('Given nothing from local storage', () => {
     describe('When the hook renders', () => {
@@ -32,6 +35,14 @@ describe('useFavourites [hook]', () => {
         expect(result.current.isFav(name)).toBe(false)
         act(() => result.current.toggleFav(name))
         expect(result.current.isFav(name)).toBe(true)
+      })
+      it('keeps local storage in sync with the favourites', () => {
+        expect(result.current.isFav(name)).toBe(true)
+        act(() => result.current.toggleFav(name))
+        expect(getLocal()).toEqual([])
+
+        act(() => result.current.toggleFav(name))
+        expect(getLocal()).toEqual([name])
       })
     })
   })
