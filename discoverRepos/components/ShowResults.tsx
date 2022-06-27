@@ -4,7 +4,7 @@ import { ListResults } from './ListResults'
 import { PickView } from './PickView'
 import { RepoData } from '../model/RepoData'
 import { View } from '../model/View'
-import { useFavourites } from '../hooks/useFavourites'
+import { __depreciated__useFavourites } from '../hooks/useFavourites'
 
 interface Props {
   trendingRepos: RepoData[]
@@ -17,7 +17,7 @@ export const ShowResults = ({ trendingRepos: trendingRepos }: Props) => {
   const reposToShow =
     view === View.Trending
       ? trendingRepos
-      : useFavourites(trendingRepos, favourites)
+      : __depreciated__useFavourites(trendingRepos, favourites)
 
   return (
     <>
