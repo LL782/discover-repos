@@ -19,7 +19,7 @@ describe('DiscoverRepos', () => {
     beforeEach(() => {
       window.localStorage.setItem(
         'DiscoverReposFavs',
-        JSON.stringify([allRepos[3]])
+        JSON.stringify([allRepos[3].full_name])
       )
     })
 
