@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { ListResults } from './ListResults'
 import { PickView } from './PickView'
-import { RepoData } from '../../model/RepoData'
-import { View } from '../../model/View'
+import { RepoData } from '../model/RepoData'
+import { View } from '../model/View'
 
 interface Props {
   repos: RepoData[]

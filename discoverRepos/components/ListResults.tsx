@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { RepoData } from '../../model/RepoData'
+import { RepoData } from '../model/RepoData'
 import { RepoCard } from './RepoCard'
 
 interface Props {

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { View } from 'DiscoverRepos/model/View'
+import { View } from '../model/View'
 import { Button } from './Button'
 
 interface Props {

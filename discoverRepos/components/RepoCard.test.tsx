@@ -6,7 +6,7 @@ import {
   name,
   stars,
   url,
-} from '../../fakeData/fakeRepoData'
+} from '../fakeData/fakeRepoData'
 import { RepoCard, Props } from './RepoCard'
 
 const addToFavs = jest.fn()
