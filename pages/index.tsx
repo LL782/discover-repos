@@ -19,7 +19,7 @@ export default function Page({ repos }: Props) {
       </Head>
 
       <main className={styles.container}>
-        <ShowResults repos={repos} />
+        <ShowResults trendingRepos={repos} />
       </main>
     </div>
   )

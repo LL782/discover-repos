@@ -4,19 +4,20 @@ import { ListResults } from './ListResults'
 import { PickView } from './PickView'
 import { RepoData } from '../model/RepoData'
 import { View } from '../model/View'
+import { useFavourites } from '../hooks/useFavourites'
 
 interface Props {
-  repos: RepoData[]
+  trendingRepos: RepoData[]
 }
 
-export const ShowResults = ({ repos }: Props) => {
+export const ShowResults = ({ trendingRepos: trendingRepos }: Props) => {
   const [view, setView] = useState<View>(View.Trending)
   const [favourites, setFavourites] = useState(new Map<string, boolean>())
 
   const reposToShow =
     view === View.Trending
-      ? repos
-      : repos.filter(({ full_name }) => favourites.get(full_name))
+      ? trendingRepos
+      : useFavourites(trendingRepos, favourites)
 
   return (
     <>
