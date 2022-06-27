@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { RepoData } from '../model/RepoData'
 
 export const __depreciated__useFavourites = (
@@ -6,5 +7,15 @@ export const __depreciated__useFavourites = (
 ) => allRepos.filter(({ full_name }) => favourites.get(full_name))
 
 export const useFavourites = (allRepos: RepoData[]) => {
-  return { favs: [] }
+  const [favs, setFavs] = useState<string[]>([])
+
+  const toggleFav = (name: string) => {
+    if (favs.includes(name)) {
+      setFavs(favs.filter((n) => n !== name))
+    } else {
+      setFavs([name])
+    }
+  }
+
+  return { favs, toggleFav }
 }
