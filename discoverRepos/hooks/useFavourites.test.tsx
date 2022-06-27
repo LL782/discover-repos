@@ -22,7 +22,7 @@ describe('useFavourites [hook]', () => {
         hook = renderHook(() => useFavourites([fakeRepoData]))
         result = hook.result
       })
-      it('returns no favourites if none have been selected', () => {
+      it('returns nothing if no favourites have been selected', () => {
         expect(result.current.favs).toEqual([])
       })
       it('returns a toggle for adding and subtracting favourites', () => {
@@ -59,6 +59,25 @@ describe('useFavourites [hook]', () => {
       it('includes the locally stored favourites in what it returns', () => {
         expect(hook.result.current.isFav(name)).toBe(true)
         expect(hook.result.current.favs).toEqual([name])
+      })
+    })
+  })
+  describe('Given one trending and one unknown repo from local storage', () => {
+    const trending = [fakeRepoData]
+
+    beforeEach(() => {
+      const locals = [fakeRepoData.full_name, 'unknown_repo']
+      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(locals))
+    })
+
+    describe('When the hook renders', () => {
+      beforeEach(() => {
+        hook = renderHook(() => useFavourites(trending))
+        result = hook.result
+      })
+      it('only the trending repo has been added to the favourites', () => {
+        expect(hook.result.current.isFav(fakeRepoData.full_name)).toBe(true)
+        expect(hook.result.current.isFav('unknown_repo')).toBe(false)
       })
     })
   })

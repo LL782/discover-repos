@@ -6,21 +6,23 @@ export const __depreciated__useFavourites = (
   favourites: Map<string, boolean>
 ) => allRepos.filter(({ full_name }) => favourites.get(full_name))
 
-export const useFavourites = (allRepos: RepoData[]) => {
-  const local = JSON.parse(
+export const useFavourites = (trendingRepos: RepoData[]) => {
+  const locals = JSON.parse(
     window.localStorage.getItem('DiscoverReposFavs') || '[]'
   )
-  const [favs, setFavs] = useState<string[]>(local)
+  const trendingLocals = locals.filter((localName: string) =>
+    trendingRepos.map(({ full_name }) => full_name).includes(localName)
+  )
+
+  const [favs, setFavs] = useState<string[]>(trendingLocals)
 
   const toggleFav = (name: string) => {
     let newFavs: string[]
-
     if (favs.includes(name)) {
       newFavs = favs.filter((n) => n !== name)
     } else {
       newFavs = [...favs, name]
     }
-
     setFavs(newFavs)
     window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(newFavs))
   }
