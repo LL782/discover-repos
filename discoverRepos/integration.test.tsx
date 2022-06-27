@@ -2,18 +2,17 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
-import { RepoData } from './model/RepoData'
+import { View } from './model/View'
 
 const allRepos = reposResponse.items
 const { findByRole, findAllByRole, queryByRole } = screen
 const repo = (i: number) => queryByRole('link', { name: allRepos[i].full_name })
-const repoByName = (name: string) => queryByRole('link', { name })
 
 const favToggle = async (i: number) =>
   (await findAllByRole('checkbox', { name: 'Favourite' }))[i]
 
-const viewFavourites = async () =>
-  fireEvent.click(await findByRole('button', { name: 'Favourites' }))
+const view = async (view: View) =>
+  fireEvent.click(await findByRole('button', { name: view }))
 
 describe('DiscoverRepos', () => {
   describe('Given a favourite from a previous session', () => {
@@ -44,7 +43,7 @@ describe('DiscoverRepos', () => {
 
         describe('And we switch to the "Favourites" view', () => {
           beforeEach(async () => {
-            await viewFavourites()
+            await view(View.Favourites)
           })
 
           it('displays the newly favourited repo', async () => {
@@ -59,6 +58,7 @@ describe('DiscoverRepos', () => {
           })
         })
       })
+
       describe(`When the previously stored repo's "Favourite" toggle is clicked`, () => {
         beforeEach(async () => {
           fireEvent.click(await favToggle(3))
@@ -72,7 +72,7 @@ describe('DiscoverRepos', () => {
 
         describe('And when we switch to the "Favourites" view', () => {
           beforeEach(async () => {
-            await viewFavourites()
+            await view(View.Favourites)
           })
           it('does NOT display that repo', () => {
             expect(repo(3)).not.toBeInTheDocument()

@@ -10,11 +10,11 @@ interface Props {
 }
 
 export const ShowResults = ({ repos }: Props) => {
-  const [view, setView] = useState<View>('Trending')
+  const [view, setView] = useState<View>(View.Trending)
   const [favourites, setFavourites] = useState(new Map<string, boolean>())
 
   const reposToShow =
-    view === 'Trending'
+    view === View.Trending
       ? repos
       : repos.filter(({ full_name }) => favourites.get(full_name))
 

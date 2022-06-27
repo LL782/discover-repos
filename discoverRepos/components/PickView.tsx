@@ -11,7 +11,7 @@ interface Props {
 export const PickView = ({ view, setView }: Props) => (
   <div>
     <h1>{view}</h1>
-    <Button name="Trending" onClick={() => setView('Trending')} />
-    <Button name="Favourites" onClick={() => setView('Favourites')} />
+    <Button name="Trending" onClick={() => setView(View.Trending)} />
+    <Button name="Favourites" onClick={() => setView(View.Favourites)} />
   </div>
 )

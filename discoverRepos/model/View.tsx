@@ -1,1 +1,4 @@
-export type View = 'Trending' | 'Favourites'
+export enum View {
+  Trending = 'Trending',
+  Favourites = 'Favourites',
+}
