@@ -7,7 +7,11 @@ export const __depreciated__useFavourites = (
 ) => allRepos.filter(({ full_name }) => favourites.get(full_name))
 
 export const useFavourites = (allRepos: RepoData[]) => {
-  const [favs, setFavs] = useState<string[]>([])
+  const local = JSON.parse(
+    window.localStorage.getItem('DiscoverReposFavs') || '[]'
+  )
+
+  const [favs, setFavs] = useState<string[]>(local)
 
   const toggleFav = (name: string) => {
     if (favs.includes(name)) {
