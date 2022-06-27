@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
-import { RepoData } from '../model/RepoData'
 import { ListResults } from './ListResults'
 import { PickView } from './PickView'
+import { RepoData } from '../../model/RepoData'
+import { View } from '../../model/View'
 
 interface Props {
   repos: RepoData[]
 }
-
-export type View = 'Trending' | 'Favourites'
 
 export const ShowResults = ({ repos }: Props) => {
   const [view, setView] = useState<View>('Trending')

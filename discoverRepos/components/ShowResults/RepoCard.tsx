@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from 'react'
-import { RepoData } from '../model/RepoData'
+import { RepoData } from '../../model/RepoData'
 
 export interface Props {
   addToFavs: () => void
