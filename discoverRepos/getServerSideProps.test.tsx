@@ -1,5 +1,5 @@
 import '@testing-library/react'
-import { getServerSideProps } from '.'
+import { getServerSideProps } from '../pages'
 
 const TODAY = '2020-01-30'
 const SEVEN_DAYS_AGO = '2020-01-23'
