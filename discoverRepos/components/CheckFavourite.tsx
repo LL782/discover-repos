@@ -6,7 +6,7 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>
 }
 
-export const FavouriteCheckbox = ({ checked, id, onChange }: Props) => (
+export const CheckFavourite = ({ checked, id, onChange }: Props) => (
   <div>
     <label htmlFor={id}>Favourite</label>
     <input
