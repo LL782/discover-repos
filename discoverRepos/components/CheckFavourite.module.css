@@ -1,0 +1,23 @@
+.container {
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.25em 0.75em 0.4em 0;
+  letter-spacing: 0.05em;
+}
+
+.container.checked {
+}
+
+.label {
+  color: #00f;
+  cursor: pointer;
+  margin-right: 0.25em;
+}
+
+.checked .label {
+}
+
+.input {
+  cursor: pointer;
+}
