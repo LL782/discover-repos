@@ -4,7 +4,7 @@ import Head from 'next/head'
 import styles from '@/pages/index.module.css'
 import { SearchReposRes } from '../discoverRepos/model/SearchReposRes'
 import { RepoData } from '../discoverRepos/model/RepoData'
-import { ShowResults } from '../discoverRepos'
+import { OrchestrateResults } from '../discoverRepos'
 
 interface Props {
   repos: RepoData[]
@@ -19,7 +19,7 @@ export default function Page({ repos }: Props) {
       </Head>
 
       <main className={styles.container}>
-        <ShowResults trendingRepos={repos} />
+        <OrchestrateResults trendingRepos={repos} />
       </main>
     </div>
   )

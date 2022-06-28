@@ -10,7 +10,7 @@ interface Props {
   trendingRepos: RepoData[]
 }
 
-export const ShowResults = ({ trendingRepos }: Props) => {
+export const OrchestrateResults = ({ trendingRepos }: Props) => {
   const [view, setView] = useState<View>(View.Trending)
   const { favs, isFav, toggleFav } = useFavourites(trendingRepos)
 

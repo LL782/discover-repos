@@ -1,1 +1,1 @@
-export { ShowResults } from './components/ShowResults'
+export { OrchestrateResults } from './components/OrchestrateResults'
