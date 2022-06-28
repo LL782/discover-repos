@@ -9,7 +9,12 @@ export interface Props {
 }
 
 export const RepoCard = ({
-  data: { description, full_name, html_url, stargazers_count },
+  data: {
+    description = 'No description',
+    full_name,
+    html_url,
+    stargazers_count,
+  },
   onChange,
   isFav,
 }: Props) => (
