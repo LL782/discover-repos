@@ -1,16 +1,19 @@
 .button {
   appearance: none;
-  background-color: #0001;
-  border: 1px solid #0006;
-  border-radius: 0.25em;
+  background-color: #fffe;
+  border-radius: 5px;
+  border: 1px solid #00fe;
+  color: #00f;
   cursor: pointer;
-  padding: 0.25em 0.75em;
+  padding: 0.25em 0.75em 0.4em;
   letter-spacing: 0.05em;
 }
 
 .button.selected {
-  background-color: #000;
-  color: #fff;
+  background-color: #00f9;
+  border-color: transparent;
+  color: #fffe;
+  cursor: default;
 }
 
 .button + .button {
