@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from 'react'
 import { RepoData } from '../model/RepoData'
+import { FavouriteCheckbox } from './FavouriteCheckbox'
 import styles from './RepoCard.module.css'
 
 export interface Props {
@@ -26,13 +27,6 @@ export const RepoCard = ({
     <p>
       Starred <strong>{stargazers_count}</strong> times
     </p>
-    <label htmlFor={full_name}>Favourite</label>
-    <input
-      checked={isFav}
-      type="checkbox"
-      onChange={onChange}
-      id={full_name}
-      name={full_name}
-    />
+    <FavouriteCheckbox checked={isFav} onChange={onChange} id={full_name} />
   </div>
 )
