@@ -3,7 +3,6 @@
   "extends": ["next/core-web-vitals"],
   "plugins": ["testing-library"],
   "overrides": [
-    // Only uses Testing Library lint rules in test files
     {
       "files": [
         "**/__tests__/**/*.[jt]s?(x)",
@@ -14,7 +13,8 @@
         "testing-library/no-render-in-setup": [
           "error",
           { "allowTestingFrameworkSetupHook": "beforeEach" }
-        ]
+        ],
+        "testing-library/prefer-screen-queries": "off"
       }
     }
   ]
