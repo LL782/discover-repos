@@ -12,7 +12,7 @@ export const ListResults = ({ isFav, results, toggleFav }: Props) => (
     {results.map((r) => (
       <RepoCard
         data={r}
-        isFav={() => isFav(r.full_name)}
+        isFav={isFav(r.full_name)}
         key={r.html_url}
         onChange={() => toggleFav(r.full_name)}
       />

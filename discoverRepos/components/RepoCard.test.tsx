@@ -10,7 +10,7 @@ import {
 import { RepoCard, Props } from './RepoCard'
 
 const data = fakeRepoData
-const isFav = jest.fn()
+let isFav = false
 const onChange = jest.fn()
 const fakeProps: Props = { data, isFav, onChange }
 
@@ -52,8 +52,7 @@ describe('Repo card', () => {
   })
   describe('Given a favourite repo', () => {
     beforeEach(() => {
-      isFav.mockReturnValueOnce(true)
-      render(<RepoCard {...fakeProps} />)
+      render(<RepoCard {...{ ...fakeProps, isFav: true }} />)
     })
     it('defaults the "Favourite" toggle to checked', async () => {
       expect((await favToggle()).checked).toBe(true)
