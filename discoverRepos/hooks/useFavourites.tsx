@@ -1,15 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RepoData } from '../model/RepoData'
+import { useLocalStorageAvailable } from './useLocalStorageAvailable'
 
 export const useFavourites = (trendingRepos: RepoData[]) => {
-  const locals = JSON.parse(
-    window.localStorage.getItem('DiscoverReposFavs') || '[]'
-  )
-  const trendingLocals = locals.filter((localName: string) =>
-    trendingRepos.map(({ full_name }) => full_name).includes(localName)
-  )
+  const [favs, setFavs] = useState<string[]>([])
+  const localStorageAvailable = useLocalStorageAvailable()
 
-  const [favs, setFavs] = useState<string[]>(trendingLocals)
+  useEffect(() => {
+    if (localStorageAvailable) {
+      const locals = JSON.parse(
+        window.localStorage.getItem('DiscoverReposFavs') || '[]'
+      )
+      const trendingLocals = locals.filter((localName: string) =>
+        trendingRepos.map(({ full_name }) => full_name).includes(localName)
+      )
+      setFavs(trendingLocals)
+    }
+  }, [])
 
   const toggleFav = (name: string) => {
     let newFavs: string[]
@@ -19,7 +26,9 @@ export const useFavourites = (trendingRepos: RepoData[]) => {
       newFavs = [...favs, name]
     }
     setFavs(newFavs)
-    window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(newFavs))
+    if (localStorageAvailable) {
+      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(newFavs))
+    }
   }
 
   const isFav = (name: string) => favs.includes(name)

@@ -82,4 +82,10 @@ describe('useFavourites [hook]', () => {
       })
     })
   })
+  it('does NOT throw an error if local storage is unavailable', () => {
+    window.localStorage.setItem = jest.fn().mockImplementation(() => {
+      throw new Error()
+    })
+    expect(() => renderHook(() => useFavourites([fakeRepoData]))).not.toThrow()
+  })
 })
