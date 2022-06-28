@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from 'react'
 import { RepoData } from '../model/RepoData'
+import styles from './RepoCard.module.css'
 
 export interface Props {
   data: RepoData
@@ -12,7 +13,7 @@ export const RepoCard = ({
   onChange,
   isFav,
 }: Props) => (
-  <div>
+  <div className={styles.card}>
     <h2>
       <a href={html_url}>{full_name}</a>
     </h2>
