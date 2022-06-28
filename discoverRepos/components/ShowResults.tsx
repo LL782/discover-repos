@@ -5,7 +5,7 @@ import { PickView } from './PickView'
 import { RepoData } from '../model/RepoData'
 import { View } from '../model/View'
 import { useFavourites } from '../hooks/useFavourites'
-
+import { NoFavouritesCard } from './NoFavouritesCard'
 interface Props {
   trendingRepos: RepoData[]
 }
@@ -19,10 +19,17 @@ export const ShowResults = ({ trendingRepos: trendingRepos }: Props) => {
       ? trendingRepos
       : trendingRepos.filter(({ full_name }) => favs.includes(full_name))
 
+  const Results = () =>
+    reposToShow.length > 0 ? (
+      <ListResults isFav={isFav} results={reposToShow} toggleFav={toggleFav} />
+    ) : view === 'Favourites' ? (
+      <NoFavouritesCard />
+    ) : null
+
   return (
     <>
       <PickView setView={setView} view={view} />
-      <ListResults isFav={isFav} results={reposToShow} toggleFav={toggleFav} />
+      <Results />
     </>
   )
 }

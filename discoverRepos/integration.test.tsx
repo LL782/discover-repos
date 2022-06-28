@@ -6,7 +6,7 @@ import { View } from './model/View'
 import { LOCAL_STORAGE_KEY } from './hooks/useFavourites'
 
 const allRepos = reposResponse.items
-const { findByRole, findAllByRole, queryByRole } = screen
+const { findByRole, findAllByRole, findByText, queryByRole } = screen
 const repo = (i: number) => queryByRole('link', { name: allRepos[i].full_name })
 
 const favToggle = async (i: number) =>
@@ -77,6 +77,11 @@ describe('DiscoverRepos', () => {
           })
           it('does NOT display that repo', () => {
             expect(repo(3)).not.toBeInTheDocument()
+          })
+          it('shows a note about not having selected any favourites', async () => {
+            expect(
+              await findByRole('heading', { name: 'No Favourites' })
+            ).toBeInTheDocument()
           })
         })
       })
