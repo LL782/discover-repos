@@ -1,0 +1,8 @@
+.container {
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background: #fffe;
+}

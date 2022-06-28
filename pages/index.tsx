@@ -12,7 +12,7 @@ interface Props {
 
 export default function Page({ repos }: Props) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Discover Repos</title>
         <link rel="icon" href="/favicon.ico" />

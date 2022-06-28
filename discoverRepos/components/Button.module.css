@@ -1,0 +1,18 @@
+.button {
+  appearance: none;
+  background-color: #0001;
+  border: 1px solid #0006;
+  border-radius: 0.25em;
+  cursor: pointer;
+  padding: 0.25em 0.75em;
+  letter-spacing: 0.05em;
+}
+
+.button.selected {
+  background-color: #000;
+  color: #fff;
+}
+
+.button + .button {
+  margin-left: 1em;
+}
