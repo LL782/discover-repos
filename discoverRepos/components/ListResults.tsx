@@ -1,5 +1,6 @@
 import { RepoData } from '../model/RepoData'
 import { RepoCard } from './RepoCard'
+import { Spacer } from './Spacer'
 
 interface Props {
   isFav: (arg0: string) => boolean
@@ -17,5 +18,6 @@ export const ListResults = ({ isFav, results, toggleFav }: Props) => (
         onChange={() => toggleFav(r.full_name)}
       />
     ))}
+    <Spacer />
   </>
 )
