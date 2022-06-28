@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import * as DiscoverRepos from '@/pages/index'
 import { reposResponse } from '../mocks/responses/gitHubSearchRepos'
 import { View } from './model/View'
+import { LOCAL_STORAGE_KEY } from './hooks/useFavourites'
 
 const allRepos = reposResponse.items
 const { findByRole, findAllByRole, queryByRole } = screen
@@ -66,7 +67,7 @@ describe('DiscoverRepos', () => {
 
         it('removes it from the browser storage', async () => {
           expect(
-            JSON.parse(window.localStorage.getItem('DiscoverReposFavs') || '')
+            JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '')
           ).toEqual([])
         })
 

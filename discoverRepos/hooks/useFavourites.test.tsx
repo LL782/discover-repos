@@ -1,7 +1,7 @@
 import { act, renderHook, RenderHookResult } from '@testing-library/react'
 import { fakeRepoData, name } from '../fakeData/fakeRepoData'
 import { RepoData } from '../model/RepoData'
-import { useFavourites } from './useFavourites'
+import { LOCAL_STORAGE_KEY, useFavourites } from './useFavourites'
 
 type Result = {
   favs: string[]
@@ -13,7 +13,7 @@ let hook: RenderHookResult<Result, RepoData[]>
 let result: { current: Result }
 
 const getLocal = () =>
-  JSON.parse(window.localStorage.getItem('DiscoverReposFavs') || '[]')
+  JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
 
 describe('useFavourites [hook]', () => {
   describe('Given nothing from local storage', () => {
@@ -49,7 +49,7 @@ describe('useFavourites [hook]', () => {
   describe('Given a trending repo from local storage', () => {
     beforeEach(() => {
       const local = JSON.stringify([fakeRepoData.full_name])
-      window.localStorage.setItem('DiscoverReposFavs', local)
+      window.localStorage.setItem(LOCAL_STORAGE_KEY, local)
     })
 
     describe('When the hook renders', () => {
@@ -68,7 +68,7 @@ describe('useFavourites [hook]', () => {
 
     beforeEach(() => {
       const locals = [fakeRepoData.full_name, 'unknown_repo']
-      window.localStorage.setItem('DiscoverReposFavs', JSON.stringify(locals))
+      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(locals))
     })
 
     describe('When the hook renders', () => {
