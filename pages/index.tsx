@@ -2,9 +2,9 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 
 import styles from '@/pages/index.module.css'
-import { SearchReposRes } from 'DiscoverRepos/model/SearchReposRes'
-import { RepoData } from 'DiscoverRepos/model/RepoData'
-import { ShowResults } from '../DiscoverRepos'
+import { SearchReposRes } from '../discoverRepos/model/SearchReposRes'
+import { RepoData } from '../discoverRepos/model/RepoData'
+import { ShowResults } from '../discoverRepos'
 
 interface Props {
   repos: RepoData[]
