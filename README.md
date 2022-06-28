@@ -4,8 +4,9 @@ This is an exercise project using TypeScript and React, boot-strapped with [crea
 
 ## Quick links
 
-- [The Exercise](#the-exercise-%EF%B8%8F%EF%B8%8F)
+- [Run the tests](#run-the-tests-)
 - [Run the app](#run-the-app)
+- [Production build](#production-build)
 
 ## The Exercise 🏋️‍♀️
 
@@ -20,15 +21,30 @@ This is an exercise project using TypeScript and React, boot-strapped with [crea
 > 🍎 Bonus task: if time allows, the ability to filter the repos by the languages used would be an awesome addition to have.
 >
 > ### Implementation Details 🔎
+
+## Run the tests 🧪
+
 >
+
 > GitHub provides a public search endpoint which you can use for fetching the most starred repositories:
+
+```
 > https://api.github.com/search/repositories?q=created:>2017-01-10&sort=stars&order=desc
+yarn install
+yarn test
+```
 
 ## Run the app
 
 ```
 yarn install
-yarn run dev
+yarn dev
 ```
 
 See the [package.json](/package.json) for other available scripts.
+
+## Production Build
+
+The app is deployed to [https://discover-repos.vercel.app/](https://discover-repos.vercel.app/)
+
+This is built from the `main` branch via configuration in [my Vercel Dashboard](https://vercel.com/ll782/discover-repos)
