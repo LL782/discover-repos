@@ -9,16 +9,20 @@ interface Props {
 }
 
 export const CheckFavourite = ({ checked, id, onChange }: Props) => {
-  let className = `${styles.container}`
-  if (checked) className += ` ${styles.checked}`
+  let labelClassName = `${styles.label}`
+  let inputClassName = `${styles.input}`
+  if (checked) {
+    labelClassName += ` ${styles.checked}`
+    inputClassName += ` ${styles.checked}`
+  }
   return (
-    <div className={className}>
-      <label className={styles.label} htmlFor={id}>
+    <div className={styles.container}>
+      <label className={labelClassName} htmlFor={id}>
         Favourite
       </label>
       <input
         checked={checked}
-        className={styles.input}
+        className={inputClassName}
         type="checkbox"
         onChange={onChange}
         id={id}
