@@ -30,7 +30,6 @@
 
 @media screen and (max-width: 599px) {
   .label {
-    appearance: none;
     border: 2px solid #00f5;
     border-radius: 5px;
     display: block;
@@ -46,11 +45,5 @@
 @media screen and (min-width: 600px) {
   .container {
     display: inline-block;
-  }
-  .label {
-    appearance: none;
-    border: 1px solid #00f4;
-    display: block;
-    width: 100%;
   }
 }
