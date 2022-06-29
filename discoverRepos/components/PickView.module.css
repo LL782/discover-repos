@@ -1,6 +1,7 @@
 .container {
   border-bottom: 1px solid #000e;
   padding-bottom: 1em;
+  padding-top: 1px;
   width: 100%;
   position: sticky;
   top: 0;
