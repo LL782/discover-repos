@@ -6,16 +6,10 @@
   letter-spacing: 0.05em;
 }
 
-.container.checked {
-}
-
 .label {
   color: #00f;
   cursor: pointer;
   margin-right: 0.25em;
-}
-
-.checked .label {
 }
 
 .input {
