@@ -9,7 +9,6 @@
 .label {
   color: #00f;
   cursor: pointer;
-  margin-right: 0.25em;
 }
 
 .label:before {
@@ -18,7 +17,7 @@
   position: relative;
   top: 2px;
   margin-left: -1px;
-  margin-right: 5px;
+  margin-right: 4px;
   display: inline-block;
   z-index: -1;
 }
